@@ -18,6 +18,7 @@
                 cyan: '#00f0ff',
                 gold: '#ffd700',
                 gray: '#1a1a1a',
+                neon: '#99E5F8',
               }
             },
             fontFamily: {
@@ -77,6 +78,19 @@
       }
       ::-webkit-scrollbar-thumb:hover {
         background: #00f0ff;
+      }
+      .terminal-scrollbar::-webkit-scrollbar {
+        width: 6px;
+      }
+      .terminal-scrollbar::-webkit-scrollbar-track {
+        background: #1a1a1a;
+      }
+      .terminal-scrollbar::-webkit-scrollbar-thumb {
+        background: #333;
+        border-radius: 0px;
+      }
+      .terminal-scrollbar::-webkit-scrollbar-thumb:hover {
+        background: #99E5F8;
       }
     </style>
   <script type="importmap">

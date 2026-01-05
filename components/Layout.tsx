@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Globe, Twitter, Send, Mail, Disc } from 'lucide-react';
+import { Menu, X, Globe, Twitter, Send, Mail, Disc, TerminalSquare } from 'lucide-react';
 import { Translations, Language } from '../types';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -8,9 +8,15 @@ interface LayoutProps {
   t: Translations;
   lang: Language;
   setLang: (l: Language) => void;
+  onOpenTerminal: () => void;
 }
 
-export const Navbar: React.FC<{ t: Translations; lang: Language; setLang: (l: Language) => void }> = ({ t, lang, setLang }) => {
+export const Navbar: React.FC<{ 
+  t: Translations; 
+  lang: Language; 
+  setLang: (l: Language) => void;
+  onOpenTerminal: () => void;
+}> = ({ t, lang, setLang, onOpenTerminal }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -32,6 +38,10 @@ export const Navbar: React.FC<{ t: Translations; lang: Language; setLang: (l: La
         behavior: 'smooth'
       });
     }
+  };
+
+  const handleConnect = () => {
+    window.open('https://t.me/hlabs_ai', '_blank');
   };
 
   return (
@@ -67,13 +77,24 @@ export const Navbar: React.FC<{ t: Translations; lang: Language; setLang: (l: La
         {/* Actions */}
         <div className="hidden md:flex items-center gap-4">
           <button 
+             onClick={onOpenTerminal}
+             className="flex items-center gap-2 text-xs font-bold font-mono text-brand-neon bg-brand-neon/10 border border-brand-neon/50 px-4 py-2 rounded hover:bg-brand-neon hover:text-black transition-all shadow-[0_0_10px_rgba(153,229,248,0.2)]"
+          >
+             <TerminalSquare size={14} />
+             {lang === 'cn' ? '打开终端' : 'OPEN TERMINAL'}
+          </button>
+          
+          <button 
             onClick={() => setLang(lang === 'cn' ? 'en' : 'cn')}
             className="flex items-center gap-1 text-xs font-mono text-gray-400 hover:text-white border border-gray-800 px-3 py-1 rounded hover:border-brand-cyan transition-all"
           >
             <Globe size={14} />
             {lang.toUpperCase()}
           </button>
-          <button className="bg-white text-black px-6 py-2 text-sm font-bold hover:bg-brand-cyan transition-colors skew-x-[-10deg]">
+          <button 
+            onClick={handleConnect}
+            className="bg-white text-black px-6 py-2 text-sm font-bold hover:bg-brand-cyan transition-colors skew-x-[-10deg]"
+          >
              <span className="block skew-x-[10deg]">CONNECT</span>
           </button>
         </div>
@@ -104,6 +125,19 @@ export const Navbar: React.FC<{ t: Translations; lang: Language; setLang: (l: La
                   {link.label}
                 </a>
               ))}
+               <button 
+                 onClick={onOpenTerminal}
+                 className="flex items-center justify-center gap-2 text-sm font-bold font-mono text-black bg-brand-neon px-4 py-3 rounded"
+              >
+                 <TerminalSquare size={16} />
+                 {lang === 'cn' ? '打开终端' : 'OPEN TERMINAL'}
+              </button>
+              <button 
+                 onClick={handleConnect}
+                 className="flex items-center justify-center gap-2 text-sm font-bold text-black bg-white px-4 py-3 rounded"
+              >
+                 CONNECT
+              </button>
               <div className="flex justify-between items-center pt-4 border-t border-gray-800">
                  <span className="text-gray-500 text-sm">Language</span>
                  <button 
@@ -132,7 +166,13 @@ export const Footer: React.FC<{ t: Translations }> = ({ t }) => {
           </div>
           <div className="flex gap-6">
             {[Twitter, Send, Disc, Mail].map((Icon, i) => (
-              <a key={i} href="#" className="w-12 h-12 rounded-full bg-gray-900 flex items-center justify-center text-gray-400 hover:bg-brand-cyan hover:text-black transition-all">
+              <a 
+                key={i} 
+                href={i === 1 ? "https://t.me/hlabs_ai" : "#"} 
+                target={i === 1 ? "_blank" : undefined}
+                rel={i === 1 ? "noopener noreferrer" : undefined}
+                className="w-12 h-12 rounded-full bg-gray-900 flex items-center justify-center text-gray-400 hover:bg-brand-cyan hover:text-black transition-all"
+              >
                 <Icon size={20} />
               </a>
             ))}
@@ -150,10 +190,10 @@ export const Footer: React.FC<{ t: Translations }> = ({ t }) => {
   );
 };
 
-export const Layout: React.FC<LayoutProps> = ({ children, t, lang, setLang }) => {
+export const Layout: React.FC<LayoutProps> = ({ children, t, lang, setLang, onOpenTerminal }) => {
   return (
     <div className="min-h-screen bg-brand-dark text-white selection:bg-brand-cyan selection:text-black font-sans">
-      <Navbar t={t} lang={lang} setLang={setLang} />
+      <Navbar t={t} lang={lang} setLang={setLang} onOpenTerminal={onOpenTerminal} />
       <main>{children}</main>
       <Footer t={t} />
     </div>

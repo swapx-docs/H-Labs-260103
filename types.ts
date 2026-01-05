@@ -1,4 +1,5 @@
 export type Language = 'cn' | 'en';
+export type ViewMode = 'landing' | 'terminal';
 
 export interface NavLink {
   key: string;

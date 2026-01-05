@@ -4,15 +4,21 @@ import { Hero } from './components/Hero';
 import { AboutSection, IncubationSection, CompetenciesSection } from './components/Features';
 import { MediaEcosystem, CapitalSection } from './components/Ecosystem';
 import { CaseStudiesSection, TestimonialsSection } from './components/SocialProof';
+import { TerminalOS } from './components/TerminalOS';
 import { CONTENT } from './constants';
-import { Language } from './types';
+import { Language, ViewMode } from './types';
 
 const App: React.FC = () => {
   const [lang, setLang] = useState<Language>('cn');
+  const [view, setView] = useState<ViewMode>('landing');
   const t = CONTENT[lang];
 
+  if (view === 'terminal') {
+    return <TerminalOS onBack={() => setView('landing')} />;
+  }
+
   return (
-    <Layout t={t} lang={lang} setLang={setLang}>
+    <Layout t={t} lang={lang} setLang={setLang} onOpenTerminal={() => setView('terminal')}>
       <Hero t={t} />
       <AboutSection t={t} />
       <IncubationSection t={t} />
@@ -29,7 +35,10 @@ const App: React.FC = () => {
             <h2 className="text-3xl md:text-5xl font-black text-black mb-6 uppercase tracking-tighter">
               {lang === 'cn' ? '做 Web3 头部品牌，找 H Labs' : 'Make Web3 Great Again with H Labs'}
             </h2>
-            <button className="bg-black text-white px-10 py-4 font-bold text-lg uppercase tracking-widest hover:scale-105 transition-transform shadow-2xl">
+            <button 
+               onClick={() => window.open('https://t.me/hlabs_ai', '_blank')}
+               className="bg-black text-white px-10 py-4 font-bold text-lg uppercase tracking-widest hover:scale-105 transition-transform shadow-2xl"
+            >
                {t.footer.cta}
             </button>
          </div>

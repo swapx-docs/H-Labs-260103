@@ -99,7 +99,10 @@ export const Hero: React.FC<{ t: Translations }> = ({ t }) => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
         >
-          <button className="group relative px-8 py-4 bg-brand-cyan text-black font-bold uppercase tracking-widest text-sm skew-x-[-12deg] hover:bg-white hover:shadow-[0_0_20px_rgba(0,240,255,0.6)] transition-all duration-300">
+          <button 
+             onClick={() => window.open('https://t.me/hlabs_ai', '_blank')}
+             className="group relative px-8 py-4 bg-brand-cyan text-black font-bold uppercase tracking-widest text-sm skew-x-[-12deg] hover:bg-white hover:shadow-[0_0_20px_rgba(0,240,255,0.6)] transition-all duration-300"
+          >
             <span className="relative z-10 flex items-center gap-3 skew-x-[12deg]">
               {t.hero.ctaPrimary} <ArrowRight size={18} />
             </span>
