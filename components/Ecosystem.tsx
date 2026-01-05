@@ -530,61 +530,7 @@ export const CapitalSection: React.FC<{ t: Translations }> = ({ t }) => {
                 </div>
              </div>
           </div>
-
-          {/* Membership Cards */}
-          <div>
-             <div className="text-center mb-16">
-                <h3 className="text-3xl font-bold text-white mb-4">{t.capital.nexus.title}</h3>
-                <p className="text-gray-400">{t.capital.nexus.desc}</p>
-             </div>
-
-             <div className="grid md:grid-cols-3 gap-8">
-                {t.capital.nexus.tiers.map((tier, i) => {
-                   const isBlack = tier.color === 'black';
-                   const isGold = tier.color === 'gold';
-                   const isBlue = tier.color === 'blue';
-                   
-                   return (
-                     <div key={i} className="flex flex-col gap-6 group">
-                        {/* 3D Card Visual */}
-                        <MembershipCard3D tier={tier} />
-
-                        {/* Plan Details (Below Display Stand) */}
-                        <div className={`
-                           bg-gray-900/50 border border-gray-800 p-8 rounded-2xl flex flex-col h-full hover:border-white/20 transition-colors
-                           ${isBlack ? 'bg-gradient-to-b from-gray-900 to-black' : ''}
-                        `}>
-                           <div className="mb-6">
-                              <h4 className="text-xl font-bold text-white mb-2">{tier.name}</h4>
-                              <p className="text-xs text-gray-500 uppercase tracking-wide">{tier.audience}</p>
-                           </div>
-
-                           <ul className="space-y-4 mb-8 flex-grow">
-                              {tier.features.map((feat, idx) => (
-                                 <li key={idx} className="flex items-start gap-3 text-sm text-gray-400">
-                                    <Gem size={14} className={`mt-0.5 shrink-0
-                                       ${isBlue ? 'text-blue-500' : ''}
-                                       ${isGold ? 'text-yellow-500' : ''}
-                                       ${isBlack ? 'text-white' : ''}
-                                    `} />
-                                    {feat}
-                                 </li>
-                              ))}
-                           </ul>
-
-                           <button className={`w-full py-3 text-xs font-bold uppercase tracking-widest rounded transition-all hover:scale-105 active:scale-95
-                              ${isBlue ? 'bg-blue-900/50 text-blue-300 hover:bg-blue-500 hover:text-white' : ''}
-                              ${isGold ? 'bg-yellow-900/50 text-yellow-300 hover:bg-yellow-500 hover:text-black' : ''}
-                              ${isBlack ? 'bg-white text-black hover:bg-gray-200' : ''}
-                           `}>
-                              Inquire
-                           </button>
-                        </div>
-                     </div>
-                   )
-                })}
-             </div>
-          </div>
+          
        </div>
     </section>
   );

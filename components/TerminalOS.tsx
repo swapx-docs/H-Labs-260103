@@ -4,11 +4,11 @@ import {
   Grid, Book, Gift, Wrench, FileText, BarChart2, 
   Zap, LogOut, Search, Bell, Menu, Shield, DollarSign,
   Monitor, Cpu, Activity, ChevronRight, User, CheckCircle2,
-  Video, Youtube, Instagram, Twitter, Box
+  Video, Youtube, Instagram, Twitter, Box, TrendingUp, MessageSquare
 } from 'lucide-react';
 import { BarChart, Bar, XAxis, Tooltip, ResponsiveContainer, AreaChart, Area, PieChart, Pie, Cell } from 'recharts';
 
-type TerminalPage = 'dashboard' | 'academy' | 'bounty' | 'delivery' | 'media' | 'assets';
+type TerminalPage = 'dashboard' | 'academy' | 'bounty' | 'delivery' | 'media' | 'assets' | 'intelligence';
 
 const SIDEBAR_ITEMS: { id: TerminalPage; label: string; icon: any }[] = [
   { id: 'dashboard', label: '生态看板', icon: Grid },
@@ -17,6 +17,7 @@ const SIDEBAR_ITEMS: { id: TerminalPage; label: string; icon: any }[] = [
   { id: 'delivery', label: '交付工程', icon: Wrench },
   { id: 'media', label: '媒体矩阵', icon: FileText },
   { id: 'assets', label: '资管引擎', icon: BarChart2 },
+  { id: 'intelligence', label: '情报追踪', icon: TrendingUp },
 ];
 
 const NEON = '#99E5F8';
@@ -332,6 +333,105 @@ const MediaPage = () => {
    );
 };
 
+const GrowthIntelligencePage = () => {
+   const trendData = [
+      { project: '#NexusL2', kols: 82, volume: '125.4K', sentiment: 'BULLISH', color: NEON },
+      { project: '#RWA_Summer', kols: 45, volume: '84.2K', sentiment: 'NEUTRAL', color: '#fbbf24' },
+      { project: '#BondingCurve', kols: 29, volume: '62.1K', sentiment: 'BULLISH', color: NEON },
+   ];
+
+   const alphaFeeds = [
+      { 
+         source: 'ALPHA WHALE ELITE', 
+         content: '大户们正在讨论 Nexus L2 的活动/激励，情绪很强。',
+         color: NEON
+      },
+      { 
+         source: 'DEV CORE LAB', 
+         content: '关于 SwapX 路由算法优化与反夹手机制的技术讨论占白皮书。',
+         color: '#8b5cf6'
+      },
+   ];
+
+   return (
+      <div className="space-y-8">
+         <PageHeader 
+            title="GROWTH INTELLIGENCE / 情报追踪" 
+            subtitle="实时追踪 Web3 趋势与社区洞察"
+         />
+
+         <div className="grid lg:grid-cols-2 gap-8">
+            {/* X Trend Radar */}
+            <div className="bg-[#1a1a1a] border border-gray-800 rounded-xl p-6">
+               <div className="flex items-center gap-2 mb-6">
+                  <Twitter size={18} className="text-[#1DA1F2]" />
+                  <h3 className="text-lg font-bold text-white uppercase tracking-wide">X TREND RADAR</h3>
+               </div>
+
+               <div className="space-y-4">
+                  {trendData.map((trend, i) => (
+                     <div 
+                        key={i} 
+                        className="bg-black/40 border border-gray-800 rounded-lg p-4 hover:border-gray-700 transition-colors"
+                     >
+                        <div className="flex items-center justify-between mb-2">
+                           <h4 className="text-white font-bold text-lg">{trend.project}</h4>
+                           <span 
+                              className="text-xs font-bold px-2 py-1 rounded"
+                              style={{ 
+                                 color: trend.color,
+                                 backgroundColor: trend.sentiment === 'BULLISH' ? 'rgba(153, 229, 248, 0.1)' : 'rgba(251, 191, 36, 0.1)'
+                              }}
+                           >
+                              {trend.sentiment}
+                           </span>
+                        </div>
+                        <div className="flex items-center justify-between text-sm">
+                           <span className="text-gray-500 font-mono">KOLs: {trend.kols}</span>
+                           <span 
+                              className="font-bold"
+                              style={{ color: trend.color }}
+                           >
+                              {trend.volume}
+                           </span>
+                        </div>
+                     </div>
+                  ))}
+               </div>
+            </div>
+
+            {/* TG Alpha Summarizer */}
+            <div className="bg-[#1a1a1a] border border-gray-800 rounded-xl p-6">
+               <div className="flex items-center gap-2 mb-6">
+                  <MessageSquare size={18} style={{ color: NEON }} />
+                  <h3 className="text-lg font-bold text-white uppercase tracking-wide">TG ALPHA SUMMARIZER</h3>
+               </div>
+
+               <div className="space-y-6">
+                  {alphaFeeds.map((feed, i) => (
+                     <div 
+                        key={i}
+                        className="border-l-4 pl-4 py-2"
+                        style={{ borderColor: feed.color }}
+                     >
+                        <div 
+                           className="text-xs font-bold uppercase mb-2 tracking-wider"
+                           style={{ color: feed.color }}
+                        >
+                           {feed.source}
+                        </div>
+                        <p className="text-sm text-gray-300 leading-relaxed">
+                           {feed.content}
+                        </p>
+                     </div>
+                  ))}
+               </div>
+            </div>
+         </div>
+      </div>
+   );
+};
+
 const AssetsPage = () => {
    const data = [
       { name: 'CORNERSTONE', value: 80, fill: NEON },
@@ -531,6 +631,7 @@ export const TerminalOS: React.FC<{ onBack: () => void }> = ({ onBack }) => {
                      {activePage === 'delivery' && <DeliveryPage />}
                      {activePage === 'media' && <MediaPage />}
                      {activePage === 'assets' && <AssetsPage />}
+                     {activePage === 'intelligence' && <GrowthIntelligencePage />}
                   </motion.div>
                </AnimatePresence>
             </main>
